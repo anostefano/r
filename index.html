@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Fonte</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; margin: 0; min-height: 100vh;
+         display: grid; place-items: center; background: #111; color: #eee; }
+  a { color: #8ad; }
+</style>
+</head>
+<body>
+<p id="msg">Reindirizzamento alla fonte…</p>
+<script>
+  // Uso: .../r/?v=ID_VIDEO_YOUTUBE   (opzionale: &t=90 per partire dal secondo 90)
+  var p = new URLSearchParams(location.search);
+  var v = p.get("v") || "";
+  var t = p.get("t") || "";
+  // Accetta solo ID YouTube validi (11 caratteri): così la pagina non può
+  // essere usata per reindirizzare verso siti qualsiasi.
+  if (/^[A-Za-z0-9_-]{11}$/.test(v)) {
+    var url = "https://www.youtube.com/watch?v=" + v;
+    if (/^\d+$/.test(t)) url += "&t=" + t + "s";
+    location.replace(url);
+  } else {
+    document.getElementById("msg").textContent = "Link non valido.";
+  }
+</script>
+</body>
+</html>
